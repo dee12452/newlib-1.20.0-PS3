@@ -1,11 +1,7 @@
 #ifndef __IN_H__
 #define __IN_H__
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#include <socket.h>
+#include <sys/socket.h>
 
 #define IPPROTO_IP           0x00
 #define IPPROTO_ICMP         0x01
@@ -88,9 +84,5 @@ struct ip_mreq
         struct in_addr imr_multiaddr;
         struct in_addr imr_interface;
 };
-
-#ifdef __cplusplus
-	}
-#endif
 
 #endif

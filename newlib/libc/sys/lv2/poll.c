@@ -1,13 +1,11 @@
-#include <net_init.h>
-#include <poll.h>
-#include <sys/lv2errno.h>
+#include <sys/netcalls.h>
+#include <errno.h>
 
 int poll(struct pollfd fds[], nfds_t nfds, int timeout)
 {
-    if(!LIBNET_INITIALZED)
-    {
-        errno = ENOSYS;
-        return -1;
-    }
-    return netErrno(netPoll(fds, nfds, timeout));
+    if(__netcalls.poll_r)
+        return __netcalls.poll_r(fds, nfds, timeout);
+    
+    errno = ENOSYS;
+    return -1;
 }

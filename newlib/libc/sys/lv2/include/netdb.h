@@ -1,11 +1,7 @@
 #ifndef __NETDB_H__
 #define __NETDB_H__
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#include <socket.h>
+#include <sys/socket.h>
 
 #define NETDB_INTERNAL		-1
 #define NETDB_SUCCESS		0x00
@@ -74,6 +70,10 @@ struct addrinfo
   char *ai_canonname;           /* Canonical name for service location.  */
   struct addrinfo *ai_next;     /* Pointer to next in list.  */
 };
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 struct hostent * gethostbyaddr(const char *addr,socklen_t len,int type);
 struct hostent * gethostbyname(const char *name);

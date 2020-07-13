@@ -1,16 +1,16 @@
 #ifndef __INET_H__
 #define __INET_H__
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include <netinet/in.h>
 
 #define htonl(hostlong) (hostlong)
 #define htons(hostshort) (hostshort)
 #define ntohl(netlong) (netlong)
 #define ntohs(netshort) (netshort)
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 in_addr_t inet_addr(const char* cp);
 in_addr_t inet_lnaof(struct in_addr in);

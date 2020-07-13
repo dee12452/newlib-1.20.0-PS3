@@ -1,13 +1,11 @@
-#include <netdb.h>
-#include <net_init.h>
-#include <sys/lv2errno.h>
+#include <sys/netcalls.h>
+#include <errno.h>
 
 struct hostent * gethostbyname(const char *name)
 {
-    if(!LIBNET_INITIALZED)
-    {
-        errno = ENOSYS;
-        return NULL;
-    }
-    return netErrno(netGetHostByName(name));
+    if(__netcalls.gethostbyname_r)
+        return __netcalls.gethostbyname_r(name);
+    
+    errno = ENOSYS;
+    return NULL;
 }

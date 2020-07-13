@@ -1,13 +1,11 @@
-#include <arpa/inet.h>
-#include <net_init.h>
-#include <sys/lv2errno.h>
+#include <sys/netcalls.h>
+#include <errno.h>
 
 in_addr_t inet_network(const char* cp)
 {
-    if(!LIBNET_INITIALZED)
-    {
-        errno = ENOSYS;
-        return (in_addr_t) -1;
-    }
-    return (in_addr_t) netErrno(netInetNetwork(cp));
+    if(__netcalls.inet_network_r)
+        return __netcalls.inet_network_r(cp);
+
+    errno = ENOSYS;
+    return (in_addr_t) -1;
 }

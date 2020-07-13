@@ -1,13 +1,11 @@
-#include <arpa/inet.h>
-#include <net_init.h>
-#include <sys/lv2errno.h>
+#include <sys/netcalls.h>
+#include <errno.h>
 
 in_addr_t inet_lnaof(struct in_addr in)
 {
-    if(!LIBNET_INITIALZED)
-    {
-        errno = ENOSYS;
-        return (in_addr_t) -1;
-    }
-    return (in_addr_t) netErrno(netInetLnaof(in));
+    if(__netcalls.inet_lnaof_r)
+        return __netcalls.inet_lnaof_r(in);
+
+    errno = ENOSYS;
+    return (in_addr_t) -1;
 }
